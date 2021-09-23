@@ -34,5 +34,11 @@ $ cargo build
 5. `match`: Something like `switch`.
 6. `loop`: Something like `while`.
 
+## 2021.09.22
+### CHAPTER 3
+1. `cargo new PROJECT_NAME --vcs=none` means that install a project without installing **.git** and **.gitignore**.
+2. `const MAX_POINTS: u32 = 100_000` Upper case **Constants** name is recommended for readability. And you can use underscore between numeric literals.
+3. `let x = 1; let x = x + 1;` when **Shadowing** is applied like this, `x` value will be immediately immutable after being computed. And we can mutate **type** which can not be done when use `let mut`.
+
 ## Site
 [Rust Official](https://www.rust-lang.org/learn)
