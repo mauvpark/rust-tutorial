@@ -65,13 +65,16 @@ arch-bit | isize | usize
 > e.g) `let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];`
 > With type: `let a: [i32; 5] = [1, 2, 3, 4, 5];`
 > if you want to create an array that contains the same value for each element. `let a = [3; 5];` => result `[3, 3, 3, 3, 3];`
-> If you put index out of bounds, The program exited with an error message and didn't execute the final println! statement. When you attempt to access an element using indexing, Rust will check that the index you’ve specified is less than the array length. This check has to happen at runtime, especially in this case, because the compiler can't possibly know what value a user will enter when they run the code later.
+> If you put index out of bounds, The program exited with an error message and didn't execute the final println! statement.<br/>When you attempt to access an element using indexing, Rust will check that the index you’ve specified is less than the array length.<br/>This check has to happen at runtime, especially in this case, because the compiler can't possibly know what value a user will enter when they run the code later.
 11. A **vector** is a similar collection type provided by the standard library *that is allowed to grow or shrink in size*. If you’re unsure whether to use an array or a vector, you should probably use a vector.
 12. Rust code uses snake case as the conventional style for **function** and **variable names**. *In snake case, all letters are lowercase and underscores separate words*.
 > e.g) `another_function();`
 > With param: `fn another_function(x: i32) { println!("The value of x is: {}", x); }`
-13. Statements are instructions that perform some action and do not return a value. Expressions evaluate to a resulting value. *Calling a **function** is an expression. Calling a **macro** is an expression. The block that we use to create new scopes, **{}**, is an expression. Expressions do not include ending semicolons. If you add a semicolon to the end of an expression, you turn it into a statement, which will then not return a value*.
+13. Statements are instructions that perform some action and do not return a value. Expressions evaluate to a resulting value. *Calling a **function** is an expression.<br/>Calling a **macro** is an expression.<br/>The block that we use to create new scopes, **{}**, is an expression.<br/>Expressions do not include ending semicolons.<br/>If you add a semicolon to the end of an expression, you turn it into a statement, which will then not return a value*.
 > e.g) `let y = { let x = 3; x + 1 };` It returns `4`.
+14. You must be explicit and always provide **if** with a Boolean as its condition. 
+> Unlike languages such as Ruby and JavaScript, Rust will not automatically try to convert non-Boolean types to a Boolean.<br/>Because if is an expression, we can use it on the right side of a let statement.<br/>e.g) `let number = if condition { 5 } else { 6 };`<br/>But if return types are different like `let number = if condition { 5 } else { "six" };` will fire type error.
+15. Rust has three kinds of loops: **loop**, **while**, and **for**.
 
 ## Site
 [Rust Official](https://www.rust-lang.org/learn)
