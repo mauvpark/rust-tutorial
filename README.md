@@ -76,5 +76,30 @@ arch-bit | isize | usize
 > Unlike languages such as Ruby and JavaScript, Rust will not automatically try to convert non-Boolean types to a Boolean.<br/>Because if is an expression, we can use it on the right side of a let statement.<br/>e.g) `let number = if condition { 5 } else { 6 };`<br/>But if return types are different like `let number = if condition { 5 } else { "six" };` will fire type error.
 15. Rust has three kinds of loops: **loop**, **while**, and **for**.
 
+### CHAPTER 4
+1. All data stored on the **stack** must have a known, ***fixed size***. 
+> Pushing to the stack is faster than allocating on the heap because the allocator never has to search for a place to store new data; that location is always at the top of the stack.
+2. Data with an ***unknown size*** at compile time or a size that might change must be stored on the **heap** instead.
+> ***Allocating on the heap***: The heap is less organized. When you put data on the heap, you request a certain amount of space. The memory allocator finds an empty spot in the heap that is big enough, marks it as being in use, and returns a pointer, which is the address of that location. Allocating space on the heap requires more work, because the allocator must first find a big enough space to hold the data and then perform bookkeeping to prepare for the next allocation.<br/><br/>Keeping track of what parts of code are using what data on the heap, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
+3. **Ownership Rules**
+- Each value in Rust has a variable that’s called its owner.
+- There can only be one owner at a time.
+- When the owner goes out of scope, the value will be dropped.
+4. **String literal**, we know the contents at compile time, so the text is hardcoded directly into the final executable. This is why string literals are fast and efficient. But these properties only come from the string literal’s immutability. Unfortunately, we can’t put a blob of memory into the binary for each piece of text whose size is unknown at compile time and whose size might change while running the program. <br/>
+- The memory must be requested from the memory allocator at runtime.
+- We need a way of returning this memory to the allocator when we’re done with our String. **GC(Garbage Collector)**
+5. `drop`, and it’s where the author of String can put the code to return the memory. Rust calls drop automatically at the closing curly bracket.*(= RAII)*
+6. the String data is copied, meaning we copy the pointer, the length, and the capacity that are on the stack. We do not copy the data on the heap that the pointer refers to.<div style="display:block"><img src="https://doc.rust-lang.org/book/img/trpl04-02.svg"></div> This is a problem: when s2 and s1 go out of scope, they will both try to free the same memory. This is known as a double free error and is one of the memory safety bugs we mentioned previously. Freeing memory twice can lead to memory corruption, which can potentially lead to security vulnerabilities.
+> To ensure memory safety, there’s one more detail to what happens in this situation in Rust. Instead of trying to copy the allocated memory, Rust considers s1 to no longer be valid and, therefore, Rust doesn’t need to free anything when s1 goes out of scope. Check out what happens when you try to use s1 after s2 is created; it won’t work:
+7. If you’ve heard the terms shallow copy and deep copy while working with other languages, the concept of copying the pointer, length, and capacity without copying the data probably sounds like making a shallow copy. But because Rust also invalidates the first variable, instead of being called a shallow copy, it’s known as a **move**<div style="display:block"><img src="https://doc.rust-lang.org/book/img/trpl04-04.svg"></div>***s1 was moved into s2***.
+8. Rust will never automatically create “deep” copies of your data. Therefore, any automatic copying can be assumed to be inexpensive in terms of runtime performance.
+9. Types such as **integers** that have a known size at compile time are stored entirely on the stack, so copies of the actual values are quick to make.
+10. **Copy**
+- All the integer types, such as u32.
+- The Boolean type, bool, with values true and false.
+- All the floating point types, such as f64.
+- The character type, char.
+- Tuples, if they only contain types that also implement Copy. For example, (i32, i32) implements Copy, but (i32, String) does not.
+
 ## Site
 [Rust Official](https://www.rust-lang.org/learn)
