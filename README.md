@@ -100,6 +100,8 @@ arch-bit | isize | usize
 - All the floating point types, such as f64.
 - The character type, char.
 - Tuples, if they only contain types that also implement Copy. For example, (i32, i32) implements Copy, but (i32, String) does not.
+11. As a ***borrowing***, '**&**: references' enables to use variable without taking ownership. Because the ***borrowing*** has not actual value so it can not be mutated without `mut`.
+> The opposite of referencing by using & is dereferencing, which is accomplished with the dereference operator, **'*'**.
 
 ## Site
 [Rust Official](https://www.rust-lang.org/learn)
